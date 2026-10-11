@@ -27,6 +27,19 @@ Description: it goes under when two frogs sit on it,
 and the frogs fall in the sea.
 ```
 
+Or as a form, one line each, with the description in points if you like:
+
+```
+@bot create ticket
+Title: New fishing animation
+Tag: enhancement
+Description:
+- Pull the fish out onto the ground when fishing succeeds; the player then picks it up
+- Show success or failure to other players (above the character's head?)
+```
+
+`Tag:` is optional. Line breaks and points (`-`, `*` or `•`, indented for sub-points) are kept, and show as a list in the post.
+
 - **Tags:** the word before "ticket" sets the forum tag: `bug`, `enhancement` (or `feature`, `improvement`) or `suggestion` (or `idea`). It's matched to the forum's own tags (`bugs`, `enhancement`, `suggestion`).
 - **Help:** `@bot help`, or anything the bot can't read as a ticket, gets a reply with these examples.
 - **Who opened it:** each post ends with "Opened by @you" and a link back to your message.
