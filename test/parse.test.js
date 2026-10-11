@@ -51,7 +51,7 @@ test('the description: after "description", or on the lines below', () => {
   assert.deepEqual(parseRequest('<@1> create an enhancement ticket for Pets desc - a frog that follows you'),
     { title: 'Pets', body: 'a frog that follows you', tag: 'enhancement' });
   assert.deepEqual(parseRequest('<@1> create a bug ticket for Raft sinks\nDescription: it goes under\nwhen two frogs sit on it'),
-    { title: 'Raft sinks', body: 'it goes under when two frogs sit on it', tag: 'bugs' });
+    { title: 'Raft sinks', body: 'it goes under\nwhen two frogs sit on it', tag: 'bugs' });
   assert.deepEqual(parseRequest('<@1> create a ticket for Chairs: decorative chairs\nwith cushions'),
     { title: 'Chairs', body: 'decorative chairs\nwith cushions', tag: null });
 });
@@ -59,4 +59,15 @@ test('the description: after "description", or on the lines below', () => {
 test('"details" or "description" inside a title stays in the title', () => {
   assert.deepEqual(parseRequest('<@1> create a bug ticket for Fix details page'), { title: 'Fix details page', body: '', tag: 'bugs' });
   assert.deepEqual(parseRequest('<@1> create a ticket for Item descriptions are cut off'), { title: 'Item descriptions are cut off', body: '', tag: null });
+});
+
+test('"Title:", "Tag:" and "Description:" on lines of their own, with the points kept as a list', () => {
+  assert.deepEqual(parseRequest('<@1> creat ticket\nTitle: New fishing animation\nDescription:\n- Pull fish out to the ground when fishing success.  Player will then need to pick up fish from the ground\n- Fishing success or failed should show to other players (On top of characters head?)'),
+    { title: 'New fishing animation', body: '- Pull fish out to the ground when fishing success. Player will then need to pick up fish from the ground\n- Fishing success or failed should show to other players (On top of characters head?)', tag: null });
+  assert.deepEqual(parseRequest('<@1> create a ticket\nTitle: Pets\nTag: suggestion\nDescription: a frog that\n• follows you\n  • and hops\n\n\n1. sits on rafts'),
+    { title: 'Pets', body: 'a frog that\n- follows you\n  - and hops\n\n1. sits on rafts', tag: 'suggestion' });
+  assert.deepEqual(parseRequest('<@1> create bug ticket title: Raft sinks\n* it goes under'), { title: 'Raft sinks', body: '- it goes under', tag: 'bugs' });
+  assert.deepEqual(parseRequest('<@1>\ncreate ticket\nTitle: Chairs'), { title: 'Chairs', body: '', tag: null });
+  assert.deepEqual(parseRequest('<@1> create ticket\nDescription: no title here'), { help: true });
+  assert.equal(parseRequest('<@1> create a ticket for Heat\n-5 degrees at night').body, '-5 degrees at night');
 });

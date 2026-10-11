@@ -9,6 +9,7 @@ const HELP = [
   '• `@me create a bug ticket for Raft sinks: it goes under when two frogs sit on it`',
   '• `@me create a ticket for Pets, description: a frog that follows you around`',
   '• `@me create an enhancement ticket for Chairs` and the description on the next lines',
+  '• `@me create ticket`, then `Title: ...`, `Tag: bug` and `Description:` on the next lines, with points below it (`- like this`)',
   'A word before "ticket" (bug, enhancement, suggestion) sets its tag. The description can come after `description:`, a `:`, a ` - `, or on the lines below.',
 ].join('\n');
 
