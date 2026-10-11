@@ -76,6 +76,7 @@ long as that window stays open.
 | `LISTEN_CHANNELS` | `general` | Channels it listens in (names or ids, comma-separated) |
 | `FORUM_CHANNEL` | `bugs-and-enhancements` | The forum channel it posts tickets in (name or id) |
 | `TICKET_PREFIX` | `UI` | Numbers look like `[UI-26]` |
+| `LOGIN_TIMEOUT` | `120` | Seconds without a Discord connection before it quits so the host restarts it |
 
 ## Keeping it online all the time
 
@@ -92,4 +93,5 @@ A bot is only online while something is running it. Options:
 
 - **The bot doesn't reply:** check that Message Content Intent is on (step 1.2), that you @mentioned the bot itself (not its role), and that you wrote in a channel listed in `LISTEN_CHANNELS`.
 - **"I can't find a forum channel called ...":** set `FORUM_CHANNEL` to the forum's exact name, or to its id (right-click the channel → Copy Channel ID, with Developer Mode on in Discord's settings).
+- **The health page says `starting` and the bot is offline:** it can't connect to Discord. Look in the host's logs for `Discord rate limit` / `Discord answered 429` lines: on free shared hosts (like Render's) Discord sometimes blocks the IP address for a while. The bot restarts itself after `LOGIN_TIMEOUT` seconds, which may get it a different address; otherwise it usually clears up within a few hours.
 - **"Missing Permissions" / "Missing Access":** the bot's role needs to see the forum and be allowed to create posts in it.
